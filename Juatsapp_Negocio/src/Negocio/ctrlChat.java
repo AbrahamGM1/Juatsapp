@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import org.bson.types.ObjectId;
@@ -28,10 +29,14 @@ public class ctrlChat {
     public void enviarMensaje(String txtMensaje, ObjectId usuarioEmisor, String nombreUsuarioEmisor, Chats chat, JTextPane panel) {
 
         LocalDateTime fecha = LocalDateTime.now();
+        if (txtMensaje.equals("")) {
+           
+        }else{
         Mensajes mensaje = new Mensajes(chat.getId(), txtMensaje, usuarioEmisor,nombreUsuarioEmisor, fecha);
         fachadaDAO.agregarMensaje(mensaje);
         fachadaDAO.agregarMensajeAChat(mensaje, chat);
         cargarMensajes(panel, chat, usuarioEmisor);
+        }
     }
 
     public void cargarMensajes(JTextPane panel, Chats chat, ObjectId usuarioEmisor) {
