@@ -19,6 +19,32 @@ public class Mensajes {
     private ObjectId idChat;
     private String textoMensaje;
     private ObjectId usuarioEmisor;
+    private String nombreUsuarioEmisor;
+
+    public Mensajes(ObjectId id, ObjectId idChat, String textoMensaje, ObjectId usuarioEmisor, String nombreUsuarioEmisor, LocalDateTime fechaMensaje) {
+        this.id = id;
+        this.idChat = idChat;
+        this.textoMensaje = textoMensaje;
+        this.usuarioEmisor = usuarioEmisor;
+        this.nombreUsuarioEmisor = nombreUsuarioEmisor;
+        this.fechaMensaje = fechaMensaje;
+    }
+
+    public Mensajes(ObjectId idChat, String textoMensaje, ObjectId usuarioEmisor, String nombreUsuarioEmisor, LocalDateTime fechaMensaje) {
+        this.idChat = idChat;
+        this.textoMensaje = textoMensaje;
+        this.usuarioEmisor = usuarioEmisor;
+        this.nombreUsuarioEmisor = nombreUsuarioEmisor;
+        this.fechaMensaje = fechaMensaje;
+    }
+
+    public String getNombreUsuarioEmisor() {
+        return nombreUsuarioEmisor;
+    }
+
+    public void setNombreUsuarioEmisor(String nombreUsuarioEmisor) {
+        this.nombreUsuarioEmisor = nombreUsuarioEmisor;
+    }
     private LocalDateTime fechaMensaje;
 
     public Mensajes() {
@@ -113,7 +139,7 @@ public class Mensajes {
 
     @Override
     public String toString() {
-        return textoMensaje + "\n"; //+ ", fechaMensaje=" + fechaMensaje;
+        return nombreUsuarioEmisor+"  "+fechaMensaje+":  "+textoMensaje + "\n" + "\n"; //+ ", fechaMensaje=" + fechaMensaje;
     }
 
 }

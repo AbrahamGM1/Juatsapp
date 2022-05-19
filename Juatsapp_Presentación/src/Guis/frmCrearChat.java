@@ -20,43 +20,27 @@ import javax.swing.JPanel;
  * @author Abraham
  */
 public class frmCrearChat extends javax.swing.JFrame {
+
     ctrlCrearChat control = new ctrlCrearChat();
     int xMouse, yMouse;
     Usuarios usuario;
-    
+
     public frmCrearChat(Usuarios usuario) {
         initComponents();
-        this.usuario=usuario;
+        this.usuario = usuario;
     }
 
-        ///////////////
-    public void recolorEnter(JLabel boton, JPanel botonfondo){
-        boton.setForeground(new Color(255,255,255));
+    ///////////////
+    public void recolorEnter(JLabel boton, JPanel botonfondo) {
+        boton.setForeground(new Color(255, 255, 255));
         botonfondo.setBackground(Color.blue);
     }
-    
-    public void recolorExit(JLabel boton, JPanel botonfondo){
-        boton.setForeground(new Color(0,204,255));
-        botonfondo.setBackground(new Color(204,255,255));
+
+    public void recolorExit(JLabel boton, JPanel botonfondo) {
+        boton.setForeground(new Color(0, 204, 255));
+        botonfondo.setBackground(new Color(204, 255, 255));
     }
     /////////////////
-    
-    public void crearChat(){
-    String nombreChat = this.txtNombreChat.getText();
-    //TO DO CONSULTAR EL USUARIO PARA MANDARLO COMO PARAMETRO - hacer una consulta donde envies el nombre del texto
-    
-    Usuarios usuarioInvitado = usuariosDAO.consultarPorNombreUsuario(this.txtUsuarioInvitado.getText());
-        if (usuarioInvitado==null) {
-        JOptionPane.showMessageDialog(this, "El usuario ingresado no existe", "JUATSAPP DICE", JOptionPane.WARNING_MESSAGE);
-        }
-        else if(usuarioInvitado.getNombreUsuario().equals(usuario.getNombreUsuario())){
-        JOptionPane.showMessageDialog(this, "No puedes hacer un chat contigo mismo", "JUATSAPP DICE", JOptionPane.WARNING_MESSAGE);        
-        }else{
-        chatsDAO.agregar(new Chats(nombreChat,usuario,usuarioInvitado));
-        JOptionPane.showMessageDialog(this, "Se agregó el chat", "JUATSAPP DICE", JOptionPane.WARNING_MESSAGE);
-        }
-    }
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -67,6 +51,7 @@ public class frmCrearChat extends javax.swing.JFrame {
         header = new javax.swing.JPanel();
         salir = new javax.swing.JPanel();
         txtSalir = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         txtUsuarioInvitado = new javax.swing.JTextField();
         btnCrearChat = new javax.swing.JPanel();
         lblCrearChat = new javax.swing.JLabel();
@@ -126,12 +111,17 @@ public class frmCrearChat extends javax.swing.JFrame {
                 .addComponent(txtSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        jLabel3.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        jLabel3.setText("Creación de nuevo chat");
+
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
-                .addGap(0, 272, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                 .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         headerLayout.setVerticalGroup(
@@ -139,6 +129,10 @@ public class frmCrearChat extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addContainerGap())
         );
 
         jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 40));
@@ -210,10 +204,10 @@ public class frmCrearChat extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSalirMouseClicked
-       frmUsuarioChats usuarioChats = new frmUsuarioChats(usuario);
-       usuarioChats.setVisible(true);
+        frmUsuarioChats usuarioChats = new frmUsuarioChats(usuario);
+        usuarioChats.setVisible(true);
         this.dispose();
-        
+
     }//GEN-LAST:event_txtSalirMouseClicked
 
     private void txtSalirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSalirMouseEntered
@@ -227,7 +221,7 @@ public class frmCrearChat extends javax.swing.JFrame {
     private void headerMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMouseDragged
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
-        this.setLocation(x-xMouse,y-yMouse);
+        this.setLocation(x - xMouse, y - yMouse);
     }//GEN-LAST:event_headerMouseDragged
 
     private void headerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMousePressed
@@ -236,17 +230,21 @@ public class frmCrearChat extends javax.swing.JFrame {
     }//GEN-LAST:event_headerMousePressed
 
     private void lblCrearChatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCrearChatMouseClicked
-     control.crearChat(this, usuario, txtNombreChat, txtUsuarioInvitado);
-        
-        
+        boolean seCreoChat = control.crearChat(this, usuario, txtNombreChat, txtUsuarioInvitado);
+        if (seCreoChat) {
+            frmUsuarioChats usuarioChats = new frmUsuarioChats(usuario);
+            usuarioChats.setVisible(true);
+            this.dispose();
+        }
+
     }//GEN-LAST:event_lblCrearChatMouseClicked
 
     private void lblCrearChatMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCrearChatMouseEntered
-        recolorEnter(lblCrearChat,btnCrearChat);
+        recolorEnter(lblCrearChat, btnCrearChat);
     }//GEN-LAST:event_lblCrearChatMouseEntered
 
     private void lblCrearChatMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCrearChatMouseExited
-        recolorExit(lblCrearChat,btnCrearChat);
+        recolorExit(lblCrearChat, btnCrearChat);
     }//GEN-LAST:event_lblCrearChatMouseExited
 
     private void txtNombreChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreChatActionPerformed
@@ -259,6 +257,7 @@ public class frmCrearChat extends javax.swing.JFrame {
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCrearChat;
     private javax.swing.JPanel salir;

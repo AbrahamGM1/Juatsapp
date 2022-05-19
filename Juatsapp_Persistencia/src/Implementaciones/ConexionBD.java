@@ -18,8 +18,14 @@ public class ConexionBD implements IConexionBD {
     private static final int PUERTO = 27017;
     private static final String BASE_DATOS = "Juatsapp";
     
+    private static MongoDatabase conexion = null;
+    
     @Override
     public MongoDatabase crearConexion() {
+        if (conexion !=null) {
+            return conexion;
+        }
+        
         try{
             //CONFIGURACIÓN PARA QUE MONGODRIVE REALICE EL MAPEO DE POJOS AUMATICAMENTE
             CodecRegistry pojoCodecRegistry = fromProviders(PojoCodecProvider.builder().automatic(true).build());
@@ -36,7 +42,7 @@ public class ConexionBD implements IConexionBD {
             MongoClient clienteMongo = MongoClients.create(clientsSettings);
             
             MongoDatabase baseDatos = clienteMongo.getDatabase(BASE_DATOS);
-            
+            conexion=baseDatos;
             return baseDatos;           
         }catch(Exception ex){
             System.err.println(ex.getMessage());

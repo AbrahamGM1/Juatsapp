@@ -26,7 +26,7 @@ public class frmRegistro extends javax.swing.JFrame {
      * Creates new form Registro
      */
     int xMouse, yMouse;
-
+    ctrlRegistro control = new ctrlRegistro();
     public frmRegistro() {
         initComponents();
         llenarcombo();
@@ -56,14 +56,6 @@ public class frmRegistro extends javax.swing.JFrame {
     }
     //////////////////////////////////////////////////
 
-    public void limpiarFormulario() {
-        this.txtNombre.setText("");
-        this.txtNombreUsuario.setText("");
-        this.txtCorreo.setText("");
-        this.txtContraseña.setText("");
-        this.txtEdad.setText("");
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -72,6 +64,7 @@ public class frmRegistro extends javax.swing.JFrame {
         jTree1 = new javax.swing.JTree();
         jPanel1 = new javax.swing.JPanel();
         header = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         panRegistro = new javax.swing.JPanel();
         lblRegistro = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
@@ -114,15 +107,24 @@ public class frmRegistro extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        jLabel1.setText("Registro de usuario");
+
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 680, Short.MAX_VALUE)
+            .addGroup(headerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(517, Short.MAX_VALUE))
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap())
         );
 
         jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 40));
@@ -442,8 +444,8 @@ public class frmRegistro extends javax.swing.JFrame {
 
     private void lblRegistrarseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRegistrarseMouseClicked
 //        registrarUsuario();
-        ctrlRegistro control = new ctrlRegistro();
-        Usuarios usuario = control.registrarUsuario(this, txtNombre, txtNombreUsuario, txtCorreo, txtCorreo, txtEdad, cbSexo);
+        
+        Usuarios usuario = control.registrarUsuario(this, txtNombre, txtNombreUsuario, txtCorreo, txtContraseña, txtEdad, cbSexo);
         if (!(usuario==null)) {
             frmMenu menu = new frmMenu();
             this.setVisible(false);
@@ -460,7 +462,7 @@ public class frmRegistro extends javax.swing.JFrame {
     }//GEN-LAST:event_lblRegistrarseMouseExited
 
     private void lblLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLimpiarMouseClicked
-        limpiarFormulario();
+        control.limpiarFormulario(txtNombre, txtNombreUsuario, txtCorreo, txtEdad,txtContraseña);
     }//GEN-LAST:event_lblLimpiarMouseClicked
 
     private void lblLimpiarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLimpiarMouseEntered
@@ -488,15 +490,12 @@ public class frmRegistro extends javax.swing.JFrame {
 
     private void txtEdadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEdadKeyTyped
         char c = evt.getKeyChar();
-
         int key = evt.getKeyChar();
-
         boolean numeros = key >= 48 && key <= 57;
-
         if (!numeros) {
+            getToolkit().beep();
             evt.consume();
         }
-
         if (txtEdad.getText().length() >= 2) {
             getToolkit().beep();
             evt.consume();
@@ -514,16 +513,15 @@ public class frmRegistro extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEdadKeyTyped
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-           int key = evt.getKeyChar();
 
-    boolean mayusculas = key >= 65 && key <= 90;
-    boolean minusculas = key >= 97 && key <= 122;
-    boolean espacio = key == 32;
-            
-     if (!(minusculas || mayusculas || espacio))
-    {
-        evt.consume();
-    }
+        int key = evt.getKeyChar();
+        boolean numeros = key >= 48 && key <= 57;
+        
+        if (numeros) {
+            getToolkit().beep();
+            evt.consume();
+        }
+        
         if (txtNombre.getText().length() >= 50) {
             getToolkit().beep();
             evt.consume();
@@ -540,6 +538,12 @@ public class frmRegistro extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreUsuarioKeyTyped
 
     private void txtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyTyped
+       int key = evt.getKeyChar();
+       boolean espacio = key == 32;
+        if (espacio) {
+            getToolkit().beep();
+            evt.consume();
+        }
         if (txtCorreo.getText().length() >= 60) {
             getToolkit().beep();
             evt.consume();
@@ -559,6 +563,7 @@ public class frmRegistro extends javax.swing.JFrame {
     private javax.swing.JPanel btnVolver1;
     private javax.swing.JComboBox<String> cbSexo;
     private javax.swing.JPanel header;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTree jTree1;

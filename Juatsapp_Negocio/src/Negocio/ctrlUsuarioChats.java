@@ -7,7 +7,7 @@ package Negocio;
 
 import Dominio.Chats;
 import Dominio.Usuarios;
-import static Negocio.ctrlRegistro.chatsDAO;
+import static Negocio.inicioFachada.fachadaDAO;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -23,7 +23,7 @@ import org.bson.types.ObjectId;
 public class ctrlUsuarioChats {
     
         public void mostrarChats(Usuarios usuario, JTable tblChats) {
-        List<Chats> listaChats = chatsDAO.consultarChats(usuario.getNombreUsuario());
+        List<Chats> listaChats = fachadaDAO.consultarChats(usuario.getNombreUsuario());
 
         DefaultTableModel modeloTabla = (DefaultTableModel) tblChats.getModel();
         modeloTabla.setRowCount(0);
@@ -61,7 +61,7 @@ public class ctrlUsuarioChats {
         chatSeleccionado = this.getChatSeleccionado(tblChats);
         Chats chatIngreso= new Chats();
         if (chatSeleccionado == null) {
-            chatIngreso = chatsDAO.consultarChat(chatSeleccionado);
+            chatIngreso = fachadaDAO.consultarChat(chatSeleccionado);
             JOptionPane.showMessageDialog(frame, "Debes seleccionar un chat primero", "JUATSAPP DICE", JOptionPane.INFORMATION_MESSAGE);
             return false;
         } else {
@@ -69,7 +69,7 @@ public class ctrlUsuarioChats {
         }
     }
     public Chats getChatIngreso(ObjectId chatSeleccionado){
-    Chats chatIngreso = chatsDAO.consultarChat(chatSeleccionado);
+    Chats chatIngreso = fachadaDAO.consultarChat(chatSeleccionado);
     return chatIngreso;
     }
     

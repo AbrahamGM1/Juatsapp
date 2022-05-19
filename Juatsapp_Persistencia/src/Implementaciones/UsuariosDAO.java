@@ -34,7 +34,7 @@ public class UsuariosDAO implements IUsuariosDAO{
     
     
     @Override
-    public boolean agregar(Usuarios usuario) {
+    public boolean agregarUsuario(Usuarios usuario) {
         MongoCollection<Usuarios> coleccion = this.getColeccion();
         coleccion.insertOne(usuario);
         return true;
@@ -42,7 +42,6 @@ public class UsuariosDAO implements IUsuariosDAO{
 
     @Override
     public List<Usuarios> consultarTodos() {
-        // TODO: MANEJAR POSIBLES EXCEPCIONES...
         MongoCollection<Usuarios> coleccion = this.getColeccion();
         List<Usuarios> listaUsuarios = new LinkedList<>();
         coleccion.find().into(listaUsuarios);
@@ -76,7 +75,7 @@ public class UsuariosDAO implements IUsuariosDAO{
     }
 
     @Override
-    public Usuarios actualizar(ObjectId id, String nombre, String nombreUsuario, String correo, String edad, String sexo) {
+    public Usuarios actualizarUsuario(ObjectId id, String nombre, String nombreUsuario, String correo, String edad, String sexo, String contraseña) {
         MongoCollection<Usuarios> coleccion = this.getColeccion();
         List<Usuarios> usuarioActualizado = new LinkedList<>();
                 
@@ -84,7 +83,7 @@ public class UsuariosDAO implements IUsuariosDAO{
                 
           
         
-        Bson valoresParaActualizar = new Document().append("nombre",nombre).append("nombreUsuario", nombreUsuario).append("correo", correo).append("edad", edad).append("sexo", sexo);
+        Bson valoresParaActualizar = new Document().append("nombre",nombre).append("nombreUsuario", nombreUsuario).append("correo", correo).append("edad", edad).append("sexo", sexo).append("contraseña", contraseña);
          
         Bson operacionActualizar = new Document("$set",valoresParaActualizar);
         coleccion.updateOne(new Document().append("_id", id), operacionActualizar);
@@ -107,6 +106,29 @@ public class UsuariosDAO implements IUsuariosDAO{
             return null;
         }
     }
+
+    @Override
+    public Usuarios loguearPorCorreo(String correo, String contraseña) {
+        MongoCollection<Usuarios> coleccion = this.getColeccion();
+        List<Usuarios> usuario = new LinkedList<>();
+        try{
+        coleccion.find(new Document().append("correo", correo).append("contraseña", contraseña)).into(usuario);
+            return usuario.get(0);
+        }catch(Exception e){
+            return null;
+        }
+    }
+
+    @Override
+    public Usuarios consultarPorIdUsuario(ObjectId idUsuario) {
+        MongoCollection<Usuarios> coleccion = this.getColeccion();
+        List<Usuarios> usuario = new LinkedList<>();
+        try{
+        coleccion.find(new Document().append("_id", idUsuario)).into(usuario);
+            return usuario.get(0);
+        }catch(Exception e){
+            return null;
+        }    }
 
 
 }

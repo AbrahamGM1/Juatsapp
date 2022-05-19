@@ -18,7 +18,7 @@ import org.bson.types.ObjectId;
 public interface IMensajesDAO {
        
     List<Mensajes> cargarMensajes(ObjectId idChat);
-    boolean agregar(Mensajes mensaje);
-    Mensajes consultarMensaje(Mensajes mensaje);
+    boolean agregarMensaje(Mensajes mensaje);
+    Mensajes consultarMensaje(ObjectId idMensaje);
     boolean mensajeEnviadoPorEmisor(Chats chat, ObjectId mensajeId, ObjectId usuarioEmisor);
 }

@@ -27,9 +27,9 @@ public class frmInfoUsuario extends javax.swing.JFrame {
     public frmInfoUsuario(Usuarios usuario) {
         initComponents();
         this.usuario = usuario;
-        llenarcombo();
-        control.llenarFormulario(usuario, txtNombre, txtNombreUsuario, txtCorreo, txtEdad, cbSexo);
-        control.bloquear(txtNombre, txtNombreUsuario, txtCorreo, txtEdad, cbSexo, lblGuardar, btnGuardar);
+        control.llenarcombo(cbSexo);
+        control.llenarFormulario(usuario, txtNombre, txtNombreUsuario, txtCorreo, txtEdad, cbSexo, txtContraseña);
+        control.bloquear(txtNombre, txtNombreUsuario, txtCorreo, txtEdad, cbSexo, btnGuardar, txtContraseña, btnMostrar);
 
     }
 
@@ -43,87 +43,9 @@ public class frmInfoUsuario extends javax.swing.JFrame {
         boton.setBackground(Color.blue);
     }
 
-    public void llenarFormulario() {
-        this.txtNombre.setText(usuario.getNombre());
-        this.txtNombreUsuario.setText(usuario.getNombreUsuario());
-        this.txtCorreo.setText(usuario.getCorreo());
-        this.txtEdad.setText(usuario.getEdad());
-        if (usuario.getSexo().equalsIgnoreCase("hombre")) {
-            this.cbSexo.setSelectedIndex(0);
-        } else if (usuario.getSexo().equalsIgnoreCase("mujer")) {
-            this.cbSexo.setSelectedIndex(1);
-        } else if (usuario.getSexo().equalsIgnoreCase("robot")) {
-            this.cbSexo.setSelectedIndex(2);
-        }
-    }
 
 
-    public void actualizar() {
-        String nombre = this.txtNombre.getText();
-        String nombreUsuario = this.txtNombreUsuario.getText();
-        String correo = this.txtCorreo.getText();
-        String edad = this.txtEdad.getText();
-        String sexo = "";
-        switch (this.cbSexo.getSelectedIndex()) {
-            case 0:
-                sexo = "hombre";
-                break;
-            case 1:
-                sexo = "mujer";
-                break;
-            case 2:
-                sexo = "robot";
-                break;
-            default:
-                break;
-        }
-        if (nombre.equals("") || nombreUsuario.equals("") || correo.equals("") || edad.equals("") || sexo.equals("")) {
-            JOptionPane.showMessageDialog(this, "Llene todos los campos por favor", "JUATSAPP DICE", JOptionPane.WARNING_MESSAGE);
-        } else {
-            usuario=usuariosDAO.actualizar(usuario.getId(), nombre, nombreUsuario, correo, edad, sexo);
-            JOptionPane.showMessageDialog(this, "Usuario Actualizado", "JUATSAPP DICE", JOptionPane.WARNING_MESSAGE);
-            bloquear();
-        }
-
-    }
-
-    public void bloquear() {
-        this.txtNombre.setEnabled(false);
-        this.txtNombre.setEditable(false);
-        this.txtNombreUsuario.setEnabled(false);
-        this.txtNombreUsuario.setEditable(false);
-        this.txtCorreo.setEnabled(false);
-        this.txtCorreo.setEditable(false);
-        this.txtEdad.setEnabled(false);
-        this.txtEdad.setEditable(false);
-        this.cbSexo.setEnabled(false);
-        this.cbSexo.setEditable(false);
-        this.lblGuardar.setEnabled(false);
-        this.btnGuardar.setEnabled(false);
-    }
-
-    public void desbloquear() {
-        this.txtNombre.setEnabled(true);
-        this.txtNombre.setEditable(true);
-        this.txtNombreUsuario.setEnabled(true);
-        this.txtNombreUsuario.setEditable(true);
-        this.txtCorreo.setEnabled(true);
-        this.txtCorreo.setEditable(true);
-        this.txtEdad.setEnabled(true);
-        this.txtEdad.setEditable(true);
-        this.cbSexo.setEnabled(true);
-        this.lblGuardar.setEnabled(true);
-        this.btnGuardar.setEnabled(true);
-    }
     ///TO DO, VOLVER LOS GENEROS NUMEROS, SI EL NUMERO ES 0, POSICION 0, SI EL NUMERO ES 1 POSICION 1
-
-    public void llenarcombo() {
-        this.cbSexo.addItem("Hombre");
-        this.cbSexo.addItem("Mujer");
-        this.cbSexo.addItem("Robot");
-
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -132,12 +54,9 @@ public class frmInfoUsuario extends javax.swing.JFrame {
         header = new javax.swing.JPanel();
         salir = new javax.swing.JPanel();
         txtSalir = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        btnGuardar = new javax.swing.JPanel();
-        lblGuardar = new javax.swing.JLabel();
-        btnRestablecer = new javax.swing.JPanel();
-        lblRestablecer = new javax.swing.JLabel();
         btnEditar = new javax.swing.JPanel();
         lblEditar = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -150,9 +69,14 @@ public class frmInfoUsuario extends javax.swing.JFrame {
         txtEdad = new javax.swing.JTextField();
         txtCorreo = new javax.swing.JTextField();
         cbSexo = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        txtContraseña = new javax.swing.JPasswordField();
+        btnMostrar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(0, 0));
+        setLocationByPlatform(true);
         setUndecorated(true);
         setResizable(false);
 
@@ -199,12 +123,17 @@ public class frmInfoUsuario extends javax.swing.JFrame {
                 .addComponent(txtSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        jLabel7.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        jLabel7.setText("Consulta de información");
+
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
-                .addGap(0, 562, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 358, Short.MAX_VALUE)
                 .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         headerLayout.setVerticalGroup(
@@ -212,6 +141,10 @@ public class frmInfoUsuario extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel7)
+                .addContainerGap())
         );
 
         jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 40));
@@ -240,78 +173,6 @@ public class frmInfoUsuario extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 600, 70));
-
-        btnGuardar.setBackground(new java.awt.Color(0, 204, 255));
-
-        lblGuardar.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        lblGuardar.setForeground(new java.awt.Color(204, 255, 255));
-        lblGuardar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblGuardar.setText("GUARDAR");
-        lblGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblGuardarMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblGuardarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblGuardarMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout btnGuardarLayout = new javax.swing.GroupLayout(btnGuardar);
-        btnGuardar.setLayout(btnGuardarLayout);
-        btnGuardarLayout.setHorizontalGroup(
-            btnGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnGuardarLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        btnGuardarLayout.setVerticalGroup(
-            btnGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnGuardarLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 130, -1));
-
-        btnRestablecer.setBackground(new java.awt.Color(0, 204, 255));
-
-        lblRestablecer.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        lblRestablecer.setForeground(new java.awt.Color(204, 255, 255));
-        lblRestablecer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblRestablecer.setText("RESTABLECER");
-        lblRestablecer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblRestablecer.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblRestablecerMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblRestablecerMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblRestablecerMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout btnRestablecerLayout = new javax.swing.GroupLayout(btnRestablecer);
-        btnRestablecer.setLayout(btnRestablecerLayout);
-        btnRestablecerLayout.setHorizontalGroup(
-            btnRestablecerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnRestablecerLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblRestablecer, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        btnRestablecerLayout.setVerticalGroup(
-            btnRestablecerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnRestablecerLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblRestablecer, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel1.add(btnRestablecer, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 440, 130, -1));
 
         btnEditar.setBackground(new java.awt.Color(0, 204, 255));
 
@@ -347,7 +208,7 @@ public class frmInfoUsuario extends javax.swing.JFrame {
                 .addComponent(lblEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 440, 130, -1));
+        jPanel1.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 440, 130, -1));
 
         jLabel2.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 204, 255));
@@ -356,8 +217,8 @@ public class frmInfoUsuario extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 204, 255));
-        jLabel3.setText("CORREO ELECTRÓNICO:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, -1, 30));
+        jLabel3.setText("CONTRASEÑA:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, -1, 30));
 
         jLabel4.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 204, 255));
@@ -375,6 +236,11 @@ public class frmInfoUsuario extends javax.swing.JFrame {
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 260, -1, 40));
 
         txtNombreUsuario.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        txtNombreUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreUsuarioKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtNombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 170, 230, 30));
 
         txtNombre.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
@@ -383,12 +249,32 @@ public class frmInfoUsuario extends javax.swing.JFrame {
                 txtNombreActionPerformed(evt);
             }
         });
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 230, 30));
 
         txtEdad.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        txtEdad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtEdadKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtEdad, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 220, 60, 30));
 
         txtCorreo.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        txtCorreo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCorreoActionPerformed(evt);
+            }
+        });
+        txtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCorreoKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 230, 30));
 
         cbSexo.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
@@ -398,6 +284,44 @@ public class frmInfoUsuario extends javax.swing.JFrame {
             }
         });
         jPanel1.add(cbSexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 270, 80, 20));
+
+        jLabel8.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 204, 255));
+        jLabel8.setText("CORREO ELECTRÓNICO:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, -1, 30));
+
+        txtContraseña.setText("jPasswordField1");
+        txtContraseña.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtContraseñaActionPerformed(evt);
+            }
+        });
+        txtContraseña.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtContraseñaKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, 230, 30));
+
+        btnMostrar.setBackground(new java.awt.Color(255, 255, 255));
+        btnMostrar.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        btnMostrar.setText("MOSTRAR");
+        btnMostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 340, 90, 30));
+
+        btnGuardar.setBackground(new java.awt.Color(255, 255, 255));
+        btnGuardar.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        btnGuardar.setText("GUARDAR");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 130, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -418,8 +342,8 @@ public class frmInfoUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSalirMouseClicked
-        llenarFormulario();
-        frmUsuarioChats uchats=new frmUsuarioChats(usuario);
+
+        frmUsuarioChats uchats = new frmUsuarioChats(usuario);
         this.dispose();
         uchats.setVisible(true);
     }//GEN-LAST:event_txtSalirMouseClicked
@@ -443,36 +367,9 @@ public class frmInfoUsuario extends javax.swing.JFrame {
         yMouse = evt.getY();
     }//GEN-LAST:event_headerMousePressed
 
-    private void lblGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGuardarMouseClicked
-        control.actualizar(this, usuario, txtNombre, txtNombreUsuario, txtCorreo, txtEdad, cbSexo, lblGuardar, btnGuardar);
-        this.usuario=control.getUsuario();
-    }//GEN-LAST:event_lblGuardarMouseClicked
-
-    private void lblGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGuardarMouseEntered
-        recolor(lblGuardar, btnGuardar);
-    }//GEN-LAST:event_lblGuardarMouseEntered
-
-    private void lblGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGuardarMouseExited
-        recolorExit(lblGuardar, btnGuardar);
-
-    }//GEN-LAST:event_lblGuardarMouseExited
-
-    private void lblRestablecerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRestablecerMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblRestablecerMouseClicked
-
-    private void lblRestablecerMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRestablecerMouseEntered
-        recolor(lblRestablecer, btnRestablecer);
-    }//GEN-LAST:event_lblRestablecerMouseEntered
-
-    private void lblRestablecerMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRestablecerMouseExited
-        // TODO add your handling code here:
-        recolorExit(lblRestablecer, btnRestablecer);
-    }//GEN-LAST:event_lblRestablecerMouseExited
-
     private void lblEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMouseClicked
         // TODO add your handling code here:
-        desbloquear();
+        control.desbloquear(txtNombre, txtNombreUsuario, txtCorreo, txtEdad, cbSexo, btnGuardar, txtContraseña,btnMostrar);
     }//GEN-LAST:event_lblEditarMouseClicked
 
     private void lblEditarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMouseEntered
@@ -491,11 +388,94 @@ public class frmInfoUsuario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
 
+    private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
+        this.txtContraseña.setEchoChar((char) 0);
+
+    }//GEN-LAST:event_btnMostrarActionPerformed
+
+    private void txtContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraseñaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtContraseñaActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+    this.usuario = control.actualizar(this, usuario, txtNombre, txtNombreUsuario, txtCorreo, txtEdad, cbSexo, btnGuardar, txtContraseña, btnMostrar);
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void txtEdadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEdadKeyTyped
+        char c = evt.getKeyChar();
+        int key = evt.getKeyChar();
+        boolean numeros = key >= 48 && key <= 57;
+        if (!numeros) {
+            getToolkit().beep();
+            evt.consume();
+        }
+        if (txtEdad.getText().length() >= 2) {
+            getToolkit().beep();
+            evt.consume();
+        }
+        if (Character.isLetter(c)) {
+            getToolkit().beep();
+            evt.consume();
+        }
+        if (Character.isSpaceChar(c)) {
+            getToolkit().beep();
+            evt.consume();
+        }
+        
+    }//GEN-LAST:event_txtEdadKeyTyped
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        int key = evt.getKeyChar();
+        boolean numeros = key >= 48 && key <= 57;
+        
+        if (numeros) {
+            getToolkit().beep();
+            evt.consume();
+        }
+        
+        if (txtNombre.getText().length() >= 50) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtNombreUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreUsuarioKeyTyped
+        if (txtNombreUsuario.getText().length() >= 25) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNombreUsuarioKeyTyped
+
+    private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCorreoActionPerformed
+
+    private void txtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyTyped
+       int key = evt.getKeyChar();
+       boolean espacio = key == 32;
+        if (espacio) {
+            getToolkit().beep();
+            evt.consume();
+        }
+        if (txtCorreo.getText().length() >= 60) {
+            getToolkit().beep();
+            evt.consume();
+        }
+        
+    }//GEN-LAST:event_txtCorreoKeyTyped
+
+    private void txtContraseñaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContraseñaKeyTyped
+        if (txtContraseña.getText().length() >= 25) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtContraseñaKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnEditar;
-    private javax.swing.JPanel btnGuardar;
-    private javax.swing.JPanel btnRestablecer;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnMostrar;
     private javax.swing.JComboBox<String> cbSexo;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel1;
@@ -504,12 +484,13 @@ public class frmInfoUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblEditar;
-    private javax.swing.JLabel lblGuardar;
-    private javax.swing.JLabel lblRestablecer;
     private javax.swing.JPanel salir;
+    private javax.swing.JPasswordField txtContraseña;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtEdad;
     private javax.swing.JTextField txtNombre;

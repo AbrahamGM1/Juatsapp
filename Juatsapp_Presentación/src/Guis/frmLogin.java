@@ -54,10 +54,10 @@ public class frmLogin extends javax.swing.JFrame {
         header = new javax.swing.JPanel();
         salir = new javax.swing.JPanel();
         txtSalir = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         btnLogin = new javax.swing.JPanel();
         lblLogin = new javax.swing.JLabel();
         txtContraseña = new javax.swing.JPasswordField();
-        lblNombre1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -70,7 +70,7 @@ public class frmLogin extends javax.swing.JFrame {
         lblContraseña.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblContraseña.setForeground(new java.awt.Color(255, 255, 255));
         lblContraseña.setText("CONTRASEÑA:");
-        fondo.add(lblContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
+        fondo.add(lblContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
 
         txtUsuario.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txtUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -78,12 +78,12 @@ public class frmLogin extends javax.swing.JFrame {
                 txtUsuarioActionPerformed(evt);
             }
         });
-        fondo.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 220, 30));
+        fondo.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 250, 30));
 
         lblNombre.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblNombre.setForeground(new java.awt.Color(255, 255, 255));
-        lblNombre.setText("NOMBRE DE USUARIO:");
-        fondo.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
+        lblNombre.setText("NOMBRE DE USUARIO O CORREO:");
+        fondo.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
         header.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -125,12 +125,17 @@ public class frmLogin extends javax.swing.JFrame {
                 .addComponent(txtSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        jLabel1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        jLabel1.setText("Inicio de sesión");
+
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
-                .addGap(0, 242, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
                 .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         headerLayout.setVerticalGroup(
@@ -138,9 +143,13 @@ public class frmLogin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap())
         );
 
-        fondo.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 40));
+        fondo.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, 40));
 
         btnLogin.setBackground(new java.awt.Color(204, 255, 255));
 
@@ -176,7 +185,7 @@ public class frmLogin extends javax.swing.JFrame {
                 .addComponent(lblLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        fondo.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, -1, -1));
+        fondo.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 270, -1, -1));
 
         txtContraseña.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txtContraseña.addActionListener(new java.awt.event.ActionListener() {
@@ -184,12 +193,7 @@ public class frmLogin extends javax.swing.JFrame {
                 txtContraseñaActionPerformed(evt);
             }
         });
-        fondo.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 220, 30));
-
-        lblNombre1.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
-        lblNombre1.setForeground(new java.awt.Color(255, 255, 255));
-        lblNombre1.setText("INICIO DE SESIÓN");
-        fondo.add(lblNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, -1, -1));
+        fondo.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 250, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -199,7 +203,7 @@ public class frmLogin extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(fondo, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(fondo, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
         );
 
         pack();
@@ -242,6 +246,14 @@ public class frmLogin extends javax.swing.JFrame {
             frame.setVisible(true);
             this.setVisible(false);
         }
+        if (usuario == null) {
+            usuario = control.loginPorCorreo(this, txtUsuario, txtContraseña);
+            if (!(usuario == null)) {
+            frmUsuarioChats frame= new frmUsuarioChats(usuario);
+            frame.setVisible(true);
+            this.setVisible(false);
+            }
+        }
     }//GEN-LAST:event_lblLoginMouseClicked
 
     private void lblLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLoginMouseEntered
@@ -262,10 +274,10 @@ public class frmLogin extends javax.swing.JFrame {
     private javax.swing.JPanel btnLogin;
     private javax.swing.JPanel fondo;
     private javax.swing.JPanel header;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblContraseña;
     private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblNombre;
-    private javax.swing.JLabel lblNombre1;
     private javax.swing.JPanel salir;
     private javax.swing.JPasswordField txtContraseña;
     private javax.swing.JLabel txtSalir;

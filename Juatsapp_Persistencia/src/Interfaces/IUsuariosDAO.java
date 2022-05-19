@@ -13,10 +13,20 @@ import org.bson.types.ObjectId;
  * @author Abraham
  */
 public interface IUsuariosDAO {
-    boolean agregar(Usuarios usuario);
+
+    boolean agregarUsuario(Usuarios usuario);
+
     List<Usuarios> consultarTodos();
-    Usuarios loguear (String nombreUsuario, String contraseña);
-    Usuarios consultarPorNombreUsuario (String nombreUsuario);
+
+    Usuarios loguear(String nombreUsuario, String contraseña);
+
+    Usuarios loguearPorCorreo(String correo, String contraseña);
+
+    Usuarios consultarPorNombreUsuario(String nombreUsuario);
+
     Usuarios consultarPorCorreo(String correo);
-    Usuarios actualizar(ObjectId id, String nombre, String nombreUsuario, String correo, String edad, String sexo);    
+
+    Usuarios actualizarUsuario(ObjectId id, String nombre, String nombreUsuario, String correo, String edad, String sexo, String contraseña);
+    
+    Usuarios consultarPorIdUsuario(ObjectId idUsuario);
 }

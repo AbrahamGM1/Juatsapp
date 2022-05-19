@@ -15,9 +15,9 @@ import org.bson.types.ObjectId;
  * @author Abraham
  */
 public interface IChatsDAO {
-    boolean agregar (Chats chats);
+    boolean agregarChat (Chats chats);
     List<Chats> consultarChats(String nombreUsuario);
     Chats consultarChat(ObjectId id);
     boolean agregarMensajeAChat(Mensajes mensaje, Chats chat);
-    List<Chats>cargarMensajes(Chats chat);
+    List<Chats>cargarMensajesDeChat(Chats chat);
 }

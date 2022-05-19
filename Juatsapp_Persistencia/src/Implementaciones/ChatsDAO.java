@@ -40,7 +40,7 @@ public class ChatsDAO implements IChatsDAO {
     }
 
     @Override
-    public boolean agregar(Chats chat) {
+    public boolean agregarChat(Chats chat) {
         MongoCollection<Chats> coleccion = this.getColeccion();
         coleccion.insertOne(chat);
         return true;
@@ -59,7 +59,12 @@ public class ChatsDAO implements IChatsDAO {
         MongoCollection<Chats> coleccion = this.getColeccion();
         List<Chats> listaChats = new LinkedList<>();
         coleccion.find(new Document("_id",id)).into(listaChats);
+        try{
         return listaChats.get(0);
+        }catch(Exception e){
+        return null;
+        }
+        
     }
 
     @Override
@@ -75,7 +80,7 @@ public class ChatsDAO implements IChatsDAO {
     }
 
     @Override
-    public List<Chats> cargarMensajes(Chats chat) {
+    public List<Chats> cargarMensajesDeChat(Chats chat) {
         MongoCollection<Chats> coleccion = this.getColeccion();
         List<Document> etapas = new ArrayList<>();
         etapas.add(new Document("$match",new Document().append("_id", chat.getId())));

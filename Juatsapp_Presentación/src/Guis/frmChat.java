@@ -6,6 +6,7 @@
 package Guis;
 
 import Dominio.Chats;
+import Dominio.Usuarios;
 import java.awt.Color;
 import javax.swing.JTextPane;
 import javax.swing.text.SimpleAttributeSet;
@@ -20,13 +21,17 @@ public class frmChat extends javax.swing.JFrame {
 
     int xMouse, yMouse;
     ObjectId usuarioEmisor;
+    String nombreUsuarioEmisor;
     Chats chat;
+    Usuarios usuario;
     ctrlChat control = new ctrlChat();
     
-    public frmChat(ObjectId chatSeleccionado, ObjectId usuarioEmisor, Chats chat) {
+    public frmChat(ObjectId chatSeleccionado, ObjectId usuarioEmisor,  Chats chat, String nombreUsuarioEmisor,Usuarios usuario) {
         initComponents();
+        this.usuario=usuario;
         this.usuarioEmisor=usuarioEmisor;
         this.chat=chat;
+        this.nombreUsuarioEmisor=nombreUsuarioEmisor;
         control.cargarMensajes(contenidoChat, chat,usuarioEmisor);
     }
     
@@ -43,6 +48,7 @@ public class frmChat extends javax.swing.JFrame {
         header = new javax.swing.JPanel();
         salir = new javax.swing.JPanel();
         txtSalir = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         txtMensaje = new javax.swing.JTextField();
         btnEnviar = new javax.swing.JPanel();
         lblEnviar = new javax.swing.JLabel();
@@ -97,12 +103,17 @@ public class frmChat extends javax.swing.JFrame {
                 .addComponent(txtSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        jLabel1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        jLabel1.setText("CHAT");
+
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
-                .addGap(0, 682, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 624, Short.MAX_VALUE)
                 .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         headerLayout.setVerticalGroup(
@@ -110,6 +121,10 @@ public class frmChat extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap())
         );
 
         jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 40));
@@ -159,10 +174,10 @@ public class frmChat extends javax.swing.JFrame {
         jPanel1.add(btnEnviar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 510, 130, 40));
 
         contenidoChat.setEditable(false);
-        contenidoChat.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        contenidoChat.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jScrollPane1.setViewportView(contenidoChat);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 680, 420));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 690, 420));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -179,7 +194,9 @@ public class frmChat extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSalirMouseClicked
-        System.exit(0);
+            frmUsuarioChats usuarioChats = new frmUsuarioChats(usuario);
+            this.dispose();
+            usuarioChats.setVisible(true);
     }//GEN-LAST:event_txtSalirMouseClicked
 
     private void txtSalirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSalirMouseEntered
@@ -202,7 +219,7 @@ public class frmChat extends javax.swing.JFrame {
     }//GEN-LAST:event_headerMousePressed
 
     private void lblEnviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEnviarMouseClicked
-        control.enviarMensaje(txtMensaje.getText(), usuarioEmisor,chat,contenidoChat);
+        control.enviarMensaje(txtMensaje.getText(), usuarioEmisor,nombreUsuarioEmisor,chat,contenidoChat);
         this.txtMensaje.setText("");
     }//GEN-LAST:event_lblEnviarMouseClicked
 
@@ -226,6 +243,7 @@ public class frmChat extends javax.swing.JFrame {
     private javax.swing.JPanel btnEnviar;
     private javax.swing.JTextPane contenidoChat;
     private javax.swing.JPanel header;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblEnviar;
