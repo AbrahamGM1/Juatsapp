@@ -15,7 +15,7 @@ import javafx.scene.layout.Pane;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import Negocio.ctrlRegistro;
-
+import org.netbeans.lib.awtextra.AbsoluteLayout;
 /**
  *
  * @author Abraham

@@ -13,7 +13,7 @@ import java.awt.Label;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
+import org.netbeans.lib.awtextra.AbsoluteLayout;
 /**
  *
  * @author Abraham

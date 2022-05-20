@@ -13,6 +13,7 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import org.bson.types.ObjectId;
 import Negocio.ctrlChat;
+import org.netbeans.lib.awtextra.AbsoluteLayout;
 /**
  *
  * @author Abraham

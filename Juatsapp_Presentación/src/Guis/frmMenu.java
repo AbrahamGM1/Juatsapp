@@ -7,6 +7,7 @@ import Implementaciones.UsuariosDAO;
 import Interfaces.IChatsDAO;
 import Interfaces.IUsuariosDAO;
 import java.awt.Color;
+import org.netbeans.lib.awtextra.AbsoluteLayout;
 
 /**
  *

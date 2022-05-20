@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import Negocio.ctrlLogin;
-
+import org.netbeans.lib.awtextra.AbsoluteLayout;
 /**
  *
  * @author Abraham
